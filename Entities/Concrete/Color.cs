@@ -1,6 +1,8 @@
-﻿namespace Entities.Concrete;
+﻿using Core.Entites;
 
-public class Color
+namespace Entities.Concrete;
+
+public class Color : IEntity
 {
     public int Id { get; set; }
     public string ColorName{ get; set; }
