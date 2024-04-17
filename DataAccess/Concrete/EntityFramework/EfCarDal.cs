@@ -28,7 +28,7 @@ public class EfCarDal:EfEntityRepositoryBase<Car,SqlServerContext>,ICarDal
                              BrandName = b.BrandName,
                              ColorName = co.ColorName,
                              ModelYear = c.ModelYear,
-                             DailyPrice = (double)c.DailyPrice,
+                             DailyPrice = c.DailyPrice,
                              Description = c.Description
 
                          };

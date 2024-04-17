@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = MURATCAN//SQLEXPRESS; Initial Catalog = CarRentDb; Integrated Security = True; Encrypt = False");
+            optionsBuilder.UseSqlServer("Data Source=MURATCAN\\SQLEXPRESS;Initial Catalog=CarRentDb;Integrated Security=True;TrustServerCertificate=true");
         }
 
         public DbSet<Car> Cars { get; set; }
