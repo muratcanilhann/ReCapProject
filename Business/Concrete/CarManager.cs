@@ -1,11 +1,16 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +25,18 @@ public class CarManager : ICarService
     {
         _carDal = carDal;
     }
+
+    [ValidationAspect(typeof(CarValidator))]
     public IResult Add(Car car)
     {
+
+
+
         _carDal.Add(car);
         return new SuccessResult(Messages.CarAdded);
     }
 
-    public IResult Delete(Car car)
+    public IResult Delete(Car car) 
     {
         _carDal.Delete(car);
         return new SuccessResult(Messages.CarDeleted);
@@ -34,18 +44,18 @@ public class CarManager : ICarService
 
     public IDataResult<List<Car>> GetAll()
     {
-        return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
+        return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
     }
 
     public IDataResult<List<Car>> GetAllByBrandId(int id)
     {
         return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
-       
+
     }
 
     public IDataResult<Car> GetById(int carId)
     {
-        return new SuccessDataResult<Car>(_carDal.Get(c=>c.Id == carId));
+        return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
     }
 
     public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
@@ -53,7 +63,7 @@ public class CarManager : ICarService
         return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max));
     }
 
-  
+
 
     public IResult Update(Car car)
     {
@@ -61,7 +71,7 @@ public class CarManager : ICarService
         return new SuccessResult(Messages.CarUpdated);
     }
 
-  
+
     IDataResult<List<CarDetailDto>> ICarService.GetCarDetails()
     {
         return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
