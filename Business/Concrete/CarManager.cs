@@ -32,6 +32,7 @@ public class CarManager : ICarService
 
     }
 
+   
     [ValidationAspect(typeof(CarValidator))]
     public IResult Add(Car car)
     {
