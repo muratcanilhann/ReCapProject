@@ -10,3 +10,4 @@ namespace Business.Concrete;
 public class ColorManager:IColorDal
 {
 }
+
